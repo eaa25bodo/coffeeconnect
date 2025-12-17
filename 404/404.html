@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404 – Empty Cup</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Asimovian&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Space+Grotesk:wght@300..700&family=Yuji+Syuku&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #F4E7DF;
+      --black: #16110E;
+      --pink: #d9a7b8;
+      --green: #6b7f45;
+      --orange: #ee6a2c;
+    }
+
+    .space-grotesk-regular {
+    font-family: "Space Grotesk", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: "Space Grotesk", "IBM Plex Mono", sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      min-height: 100vh;
+      /* don't center the page with body - let .page fill the viewport */
+    }
+
+    /* make the page fill the viewport and arrange content vertically */
+    .page {
+      width: 100%;
+      max-width: 1200px;
+      padding: 24px;
+      position: relative;
+      text-align: center;
+      box-sizing: border-box;
+
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;       /* ensure page fills screen */
+    }
+
+    /* title inside the top-bar, centered */
+    .top-bar h1 {
+      margin: 0;
+      font-size: 48px;
+      letter-spacing: 2px;
+      font-weight: 700;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 20;
+      color: var(--black);
+      pointer-events: none;
+    }
+
+    /* Main content: allow it to take available space so message sits at bottom */
+    .content {
+      display: block;
+      position: relative;
+      margin: 24px 0;
+      /* push the image down so it does not cover the top-bar */
+      padding-top: 110px;
+      width: 100%;
+      flex: 1 1 auto; /* grow to push .message to the bottom */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* big cup / 404 background image */
+    .content img {
+      display: block;
+      width: 100%;
+      max-width: 1200px; /* match .page max-width */
+      height: auto;
+      max-height: calc(100vh - 220px); /* keep image inside viewport with room for top-bar + message */
+      margin: 0 auto;
+      object-fit: cover;
+      user-select: none;
+      -webkit-user-drag: none;
+      pointer-events: none;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* message sits at the bottom of the page (after .content) */
+    .message {
+      font-size: 22px;
+      max-width: 720px;
+      margin: 0 auto;
+      margin-top: 18px;
+      text-align: center;
+      padding: 28px 12px 8px; /* spacing from image and bottom */
+      flex: 0 0 auto; /* don't grow */
+    }
+
+    .message p {
+      margin: 6px 0;
+    }
+
+    .top-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: absolute;
+        left: 24px;
+        right: 24px;
+        top: 18px;
+        z-index: 1000; /* ensure top-bar sits on top of the image */
+    }
+
+    .back-btn {
+        background: transparent;
+        border-radius: 50%;
+        width: 56px;
+        height: 56px;
+        font-size: 24px;
+        cursor: pointer;
+    }
+
+    .top-bar-logo {
+        font-weight: bold;
+        text-align: right;
+        height: 56px;
+        object-fit: contain;
+    }
+
+  </style>
+</head>
+<body>
+
+    <div class="top-bar">
+      <a href="../index.html" aria-label="Back to homepage">
+        <img src="../img/back btn.svg" alt="back" class="back-btn" />
+      </a>
+
+     <h1>UH-OH!</h1>
+
+      <a href="../index.html" aria-label="Homepage">
+        <img src="../img/logo orange.png" alt="logo" class="top-bar-logo" />
+      </a>
+    </div>
+  
+    <div class="content">
+      <img src="404 background.png" alt="background cup"  />
+    </div>
+
+    <div class="message">
+      <p>Looks like this cup is <strong>EMPTY</strong>…</p>
+      <p>Come back later to see if we filled it up!</p>
+    </div>
+  </div>
+</body>
+</html>

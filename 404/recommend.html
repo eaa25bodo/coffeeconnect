@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Recommend a Place</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Asimovian&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Space+Grotesk:wght@300..700&family=Yuji+Syuku&display=swap" rel="stylesheet">
+
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: "Space Grotesk", "IBM Plex Mono", sans-serif;
+    }
+
+    .space-grotesk-regular {
+    font-family: "Space Grotesk", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+    body {
+      margin: 0;
+      background-color: #E1A3BC;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      width: 100%;
+      background-color: #E1A3BC;
+      padding: 50px;
+    }
+
+    .top-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+        margin-bottom: 40px;
+    }
+
+    /* title block placed between back button and logo */
+    .top-bar-title {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      text-align: center;
+      pointer-events: none; /* keep the title non-interactive */
+    }
+    .top-bar-title h1 {
+      margin: 0;
+      font-size: 100px;    /* restored size */
+      font-weight: 400;
+      text-transform: lowercase;
+      line-height: 1;
+    }
+    .top-bar-title h2 {
+      margin: 0;
+      font-size: 30px;     /* restored size */
+      font-weight: 300;
+      text-transform: none;
+    }
+
+    .top-bar-logo {
+      max-height: 122px;
+      height: 122px;
+      width: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    .back-btn {
+        background: transparent;
+        border-radius: 50%;
+        width: 122px;
+        height: 122px;
+        font-size: 24px;
+        cursor: pointer;
+    }
+
+    .logo {
+        max-width: 162px;
+        height: auto;
+        font-weight: bold;
+        text-align: right;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 100px;
+      font-weight: 400;
+      margin: 0 0 0;
+    }
+
+    h2 {
+      text-align: center;
+      margin: 0 0 30px;
+      font-size: 30px;
+      font-weight: normal;
+    }
+
+    .row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .field {
+      flex: 1;
+    }
+
+    label {
+      display: block;
+      text-align: center;
+      font-size: 30px;
+      margin-bottom: 6px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      border-radius: 20px;
+      border: none;
+      background-color: #5D7735;
+      color: #F4E7DF;
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: none;
+    }
+
+    .full-width {
+      margin-bottom: 20px;
+    }
+
+    .send-btn {
+      width: 360px;
+      padding: 14px;
+      border-radius: 30px;
+      border: none;
+      background-color: #FA5606;
+      font-size: 30px;
+      font-weight: 400;
+      cursor: pointer;
+      display: inline-flex;     /* inline so text-align:center on wrapper works */
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* wrapper to center the button */
+    .send-wrap {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    /* modal / notification */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1200;
+      padding: 24px;
+      box-sizing: border-box;
+    }
+    .modal-overlay.active { display: flex; }
+    .modal {
+      background: #F4E7DF;
+      color: #16110E;
+      padding: 24px;
+      border-radius: 12px;
+      max-width: 520px;
+      width: 100%;
+      text-align: center;
+      position: relative;
+    }
+    .modal h3 { margin: 0 0 8px; font-size: 20px; }
+    .modal p { margin: 0 0 18px; font-size: 16px; }
+    .modal .close-btn {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      background: transparent;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: #16110E;
+    }
+    
+  </style>
+</head>
+<body>
+  <div class="container">
+   <div class="top-bar">
+    <a href="../index.html" aria-label="Back to homepage">
+      <img src="../img/back btn.svg" alt="back" class="back-btn" />
+    </a>
+
+    <div class="top-bar-title" aria-hidden="true">
+      <h1>recommend</h1>
+      <h2>a place you like</h2>
+    </div>
+
+    <a href="../index.html" aria-label="Homepage">
+      <img src="../img/logo orange.png" alt="logo" class="top-bar-logo" />
+    </a>
+  </div>
+
+    <div class="row">
+      <div class="field">
+        <label>what’s the name of the place?</label>
+        <input type="text" />
+      </div>
+      <div class="field">
+        <label>what did you drink there?</label>
+        <input type="text" />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label>what is the price range?</label>
+        <input type="text" />
+      </div>
+      <div class="field">
+        <label>upload a picture:</label>
+        <input type="file" />
+      </div>
+    </div>
+
+    <div class="full-width">
+      <label>where is this place?</label>
+      <input type="text" />
+    </div>
+
+    <div class="full-width">
+      <label>why do you like this place?</label>
+      <textarea></textarea>
+    </div>
+
+    <div class="send-wrap">
+      <button class="send-btn">SEND</button>
+    </div>
+  </div>
+
+  <!-- modal notification -->
+  <div class="modal-overlay" id="recModal" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="recModalTitle">
+      <button class="close-btn" id="recModalClose" aria-label="Close and return to homepage">×</button>
+      <h3 id="recModalTitle">Thank you for your recommendation!</h3>
+      <p>We appreciate your suggestion — we’ll take a look.</p>
+      
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const sendBtn = document.querySelector('.send-btn');
+      const overlay = document.getElementById('recModal');
+      const closeBtn = document.getElementById('recModalClose');
+
+      if (!sendBtn || !overlay) return;
+
+      function openModal() {
+        overlay.classList.add('active');
+        overlay.setAttribute('aria-hidden', 'false');
+        // focus the close button for accessibility
+        closeBtn && closeBtn.focus();
+      }
+
+      function closeModal() {
+        overlay.classList.remove('active');
+        overlay.setAttribute('aria-hidden', 'true');
+      }
+
+      sendBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        openModal();
+      });
+
+      // X button: go back to first page
+      closeBtn && closeBtn.addEventListener('click', function () {
+        window.location.href = '../index.html';
+      });
+
+      // OK button: just close modal
+      okBtn && okBtn.addEventListener('click', function () {
+        closeModal();
+      });
+
+      // close on overlay click (but not when clicking modal)
+      overlay.addEventListener('click', function (e) {
+        if (e.target === overlay) closeModal();
+      });
+
+      // ESC closes modal
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' || e.keyCode === 27) {
+          closeModal();
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
