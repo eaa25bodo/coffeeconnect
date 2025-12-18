@@ -6,18 +6,15 @@
   --deep-green: #5D7735;
   --text-dark: #220D0D;
 
-  /* grid-large sizing */
   --lg-gap: 8px;
   --bg-max-w: 315px;
-  --bg-aspect: 315/594; /* width / height */
+  --bg-aspect: 315/594; 
 
-  /* SHOP — fixed 315×594 cards, 36px outer margins and up to 36px gap.
-     Gap will automatically shrink when the viewport is narrower so all 4 cards remain visible. */
   --shop-card-w: 315px;
   --shop-card-h: 594px;
-  --shop-margin: 36px;       /* left / right page inset */
-  --shop-gap-max: 36px;      /* preferred gap between cards */
-  --shop-gap-min: 8px;       /* minimum gap on very small screens */
+  --shop-margin: 36px;      
+  --shop-gap-max: 36px;      
+  --shop-gap-min: 8px;       
 }
 
 .top-bar {
@@ -25,7 +22,6 @@
   justify-content: space-between;
   height: 122px;
   align-items: center;
-  /* place top-bar over the hero and keep it inside the page inset */
   position: absolute;
   top: 24px;
   left: 24px;
@@ -48,12 +44,10 @@
     height: 122px;
     width: 162px;
   text-align: right;
-  /* keep the old .logo rule but don't force the image size here */
 }
 
-/* make the logo image fit the top-bar on the right */
 .top-bar-logo {
-  height: 122px;      /* fits within the 122px top-bar with breathing room */
+  height: 122px;     
   width: auto;
   object-fit: contain;
   display: block;
@@ -91,14 +85,12 @@ body{
   letter-spacing:-1.1%;
 }
 
-/* MAIN PAGE CONTAINER (sections) */
 .section{
   max-width:100%;
   margin:40px 0;
   padding:0 24px;
 }
 
-/* ABOUT: two-column layout (image left, text right) */
 .about{
   display:grid;
   grid-template-columns: 1fr 1fr;
@@ -169,12 +161,10 @@ body{
 
 
 
-/* ensure no horizontal scrollbar appears — items shrink to fit */
 html, body {
   overflow-x: hidden;
 }
 
-/* responsive: keep four visible by shrinking card widths; on very small screens switch to 2 columns */
 @media (max-width: 1100px) {
   .grid.large > div{
     width: clamp(160px, calc((100% - (3 * var(--lg-gap))) / 4), var(--bg-max-w));
@@ -182,7 +172,6 @@ html, body {
 }
 
 @media (max-width: 800px) {
-  /* fallback: allow two-per-row on narrow screens */
   .grid.large{
     flex-wrap: wrap;
     justify-content: center;
@@ -236,7 +225,7 @@ html, body {
 .grid img,
 .grid-carousel-track img {
   width: 394px;
-  height: 591px;       /* uniform height like before */
+  height: 591px;       
   object-fit: cover;
   display: block;
 }
@@ -257,7 +246,6 @@ html, body {
 
 
 
-/* ensure no accidental horizontal page scroll; the shop row will shrink gaps instead */
 html, body {
   overflow-x: hidden;
 }
@@ -270,17 +258,16 @@ html, body {
 
 .shop-section {
   display: flex;
-  gap: 36px; /* spacing between items */
+  gap: 36px;
 }
 
 .shop-section > div {
   position: relative;
   width: 315px;
   height: 594px;
-  flex-shrink: 0; /* prevents shrinking in a row */
+  flex-shrink: 0; 
 }
 
-/* Background image */
 .shop-section .background {
   background-color: #97ADAC;
   width: 100%;
@@ -289,13 +276,12 @@ html, body {
   display: block;
 }
 
-/* Coffee image */
 .shop-section .coffee {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  max-width: 80%;  /* adjust if needed */
+  max-width: 80%;  
   max-height: 80%;
 }
 
@@ -327,7 +313,6 @@ footer {
   padding: 0;
 }
 
-/* Map section */
 .map-section {
   max-width: 1180px;
   margin: 28px auto;
@@ -414,7 +399,6 @@ footer {
 
 }
 
-/* Responsive: stack map + info on narrow screens */
 @media (max-width: 980px) {
   .map-wrap {
     flex-direction: column;

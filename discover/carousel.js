@@ -1,21 +1,13 @@
-/*
-  Infinite-loop carousel for .carousel-container / .carousel-track
-  - clones first & last slides
-  - supports mouse wheel and pointer drag (touch)
-  - keeps existing layout/CSS unchanged (uses transform on .carousel-track)
-*/
 
 (function () {
   const container = document.querySelector('.carousel-container');
   const track = container && container.querySelector('.carousel-track');
   if (!container || !track) return;
 
-  // prepare slides and gap
   let slides = Array.from(track.children);
   const computed = getComputedStyle(track);
   const gap = parseFloat(computed.gap || 0);
 
-  // clone ends and mark clones
   const firstClone = slides[0].cloneNode(true);
   const lastClone = slides[slides.length - 1].cloneNode(true);
   firstClone.dataset.clone = 'first';
@@ -24,10 +16,9 @@
   track.insertBefore(lastClone, track.firstChild);
 
   slides = Array.from(track.children);
-  let index = 1; // start at real first slide (because of prepended lastClone)
+  let index = 1; 
   let isAnimating = false;
 
-  // calculate slide size (includes gap)
   function slideSize() {
     const w = slides[0].getBoundingClientRect().width;
     return w + gap;
@@ -44,27 +35,21 @@
     index = i;
   }
 
-  // initialize after images/layout ready
   function init() {
-    // ensure track starts translated to the real first slide
     goToIndex(1, false);
   }
 
-  // handle looping when transition ends
   track.addEventListener('transitionend', () => {
     const current = slides[index];
     if (!current) return;
     if (current.dataset.clone === 'first') {
-      // jumped past last -> snap to real first
       goToIndex(1, false);
     } else if (current.dataset.clone === 'last') {
-      // jumped before first -> snap to real last
       goToIndex(slides.length - 2, false);
     }
     isAnimating = false;
   });
 
-  // navigation helpers
   function next() {
     if (isAnimating) return;
     isAnimating = true;
@@ -76,7 +61,6 @@
     goToIndex(index - 1, true);
   }
 
-  // wheel -> scroll carousel (throttle)
   let wheelTimeout = null;
   container.addEventListener('wheel', (e) => {
     e.preventDefault();
@@ -84,10 +68,9 @@
     else prev();
 
     clearTimeout(wheelTimeout);
-    wheelTimeout = setTimeout(() => { /* allow repeated scrolls */ }, 150);
+    wheelTimeout = setTimeout(() => {  }, 150);
   }, { passive: false });
 
-  // pointer (drag) support
   let pointerDown = false;
   let startX = 0;
   let currentTranslate = 0;
@@ -129,7 +112,6 @@
     container.releasePointerCapture(e.pointerId);
   });
 
-  // touch fallback (in case pointer events aren't available)
   container.addEventListener('touchstart', (e) => {
     startX = e.touches[0].clientX;
     setTransition(false);
@@ -150,13 +132,10 @@
     else { goToIndex(index, true); isAnimating = false; }
   });
 
-  // recalc on resize
   window.addEventListener('resize', () => {
-    // small timeout to ensure layout settled
     setTimeout(() => goToIndex(index, false), 50);
   });
 
-  // init when DOM/content ready and images loaded
   if (document.readyState === 'complete' || document.readyState === 'interactive') {
     init();
   } else {

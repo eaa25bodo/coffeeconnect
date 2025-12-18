@@ -32,10 +32,8 @@
       margin: 0;
       background: var(--bg);
       min-height: 100vh;
-      /* don't center the page with body - let .page fill the viewport */
     }
 
-    /* make the page fill the viewport and arrange content vertically */
     .page {
       width: 100%;
       max-width: 1200px;
@@ -49,7 +47,6 @@
       min-height: 100vh;       /* ensure page fills screen */
     }
 
-    /* title inside the top-bar, centered */
     .top-bar h1 {
       margin: 0;
       font-size: 48px;
@@ -64,27 +61,25 @@
       pointer-events: none;
     }
 
-    /* Main content: allow it to take available space so message sits at bottom */
     .content {
       display: block;
       position: relative;
       margin: 24px 0;
-      /* push the image down so it does not cover the top-bar */
       padding-top: 110px;
       width: 100%;
-      flex: 1 1 auto; /* grow to push .message to the bottom */
+      flex: 1 1 auto; 
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    /* big cup / 404 background image */
     .content img {
       display: block;
       width: 100%;
-      max-width: 1200px; /* match .page max-width */
+      max-width: 1200px; 
       height: auto;
-      max-height: calc(100vh - 220px); /* keep image inside viewport with room for top-bar + message */
+      max-height: calc(100vh - 220px); 
+      
       margin: 0 auto;
       object-fit: cover;
       user-select: none;
@@ -94,14 +89,13 @@
       z-index: 1;
     }
 
-    /* message sits at the bottom of the page (after .content) */
     .message {
       font-size: 22px;
       max-width: 720px;
       margin: 0 auto;
       margin-top: 18px;
       text-align: center;
-      padding: 28px 12px 8px; /* spacing from image and bottom */
+      padding: 28px 12px 8px; 
       flex: 0 0 auto; /* don't grow */
     }
 
@@ -117,7 +111,7 @@
         left: 24px;
         right: 24px;
         top: 18px;
-        z-index: 1000; /* ensure top-bar sits on top of the image */
+        z-index: 1000; 
     }
 
     .back-btn {

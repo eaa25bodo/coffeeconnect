@@ -1,10 +1,3 @@
-// ...new file...
-/*
-  Converts the .grid in LC.html into an infinite carousel that always shows 4 items.
-  - preserves existing markup inside .grid
-  - clones ends for seamless looping
-  - supports pointer/touch drag and mouse wheel (one-step)
-*/
 
 (function () {
   const grid = document.querySelector('.grid');
@@ -16,24 +9,19 @@
   const visible = 4;
   const cloneCount = Math.min(visible, slides.length);
 
-  // build DOM: container -> track -> slides
   const container = document.createElement('div');
   container.className = 'grid-carousel-container';
   const track = document.createElement('div');
   track.className = 'grid-carousel-track';
 
-  // move original slides into the track
   slides.forEach(s => track.appendChild(s));
 
-  // replace grid with container and append track
   grid.parentNode.replaceChild(container, grid);
   container.appendChild(track);
 
-  // ensure the track has the same gap as CSS (if any). fallback to 12px.
   const computedGap = parseFloat(getComputedStyle(track).gap) || 0;
   const gap = computedGap || 12;
 
-  // clone last N to front and first N to end for looping
   const currentChildren = Array.from(track.children);
   const firstClones = currentChildren.slice(0, cloneCount).map(n => {
     const c = n.cloneNode(true);
@@ -50,7 +38,7 @@
   firstClones.forEach(c => track.appendChild(c));
 
   let allSlides = Array.from(track.children);
-  let index = cloneCount; // start at real first slide
+  let index = cloneCount; 
   let isAnimating = false;
 
   function slideSize() {
@@ -71,10 +59,8 @@
 
   function init() {
     allSlides = Array.from(track.children);
-    // ensure track uses flex gap if not set inline
     track.style.display = 'flex';
     track.style.gap = `${gap}px`;
-    // position to first real slide
     goTo(cloneCount, false);
   }
 
@@ -103,7 +89,6 @@
     goTo(index - 1, true);
   }
 
-  // wheel -> one-step carousel
   container.addEventListener('wheel', (e) => {
     e.preventDefault();
     const delta = Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
@@ -113,7 +98,6 @@
     }
   }, { passive: false });
 
-  // pointer drag support
   let pointerDown = false;
   let startX = 0;
   let dragging = false;
@@ -148,7 +132,6 @@
     container.releasePointerCapture(e.pointerId);
   });
 
-  // touch fallback
   container.addEventListener('touchstart', (e) => {
     startX = e.touches[0].clientX;
     setTransition(false);

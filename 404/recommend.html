@@ -43,7 +43,7 @@
         margin-bottom: 40px;
     }
 
-    /* title block placed between back button and logo */
+    /* tajtel placed between back button and logo */
     .top-bar-title {
       display: flex;
       flex-direction: column;
@@ -51,18 +51,18 @@
       justify-content: center;
       gap: 4px;
       text-align: center;
-      pointer-events: none; /* keep the title non-interactive */
+      pointer-events: none; 
     }
     .top-bar-title h1 {
       margin: 0;
-      font-size: 100px;    /* restored size */
+      font-size: 100px;    
       font-weight: 400;
       text-transform: lowercase;
       line-height: 1;
     }
     .top-bar-title h2 {
       margin: 0;
-      font-size: 30px;     /* restored size */
+      font-size: 30px;    
       font-weight: 300;
       text-transform: none;
     }
@@ -149,18 +149,17 @@
       font-size: 30px;
       font-weight: 400;
       cursor: pointer;
-      display: inline-flex;     /* inline so text-align:center on wrapper works */
+      display: inline-flex;    
       align-items: center;
       justify-content: center;
     }
 
-    /* wrapper to center the button */
+
     .send-wrap {
       text-align: center;
       margin-top: 20px;
     }
 
-    /* modal / notification */
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -252,7 +251,7 @@
     </div>
   </div>
 
-  <!-- modal notification -->
+  <!-- pop-up-->
   <div class="modal-overlay" id="recModal" aria-hidden="true">
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="recModalTitle">
       <button class="close-btn" id="recModalClose" aria-label="Close and return to homepage">×</button>
@@ -273,7 +272,6 @@
       function openModal() {
         overlay.classList.add('active');
         overlay.setAttribute('aria-hidden', 'false');
-        // focus the close button for accessibility
         closeBtn && closeBtn.focus();
       }
 
@@ -292,17 +290,11 @@
         window.location.href = '../index.html';
       });
 
-      // OK button: just close modal
-      okBtn && okBtn.addEventListener('click', function () {
-        closeModal();
-      });
-
-      // close on overlay click (but not when clicking modal)
+      
       overlay.addEventListener('click', function (e) {
         if (e.target === overlay) closeModal();
       });
 
-      // ESC closes modal
       document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape' || e.keyCode === 27) {
           closeModal();
