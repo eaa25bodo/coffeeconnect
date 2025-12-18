@@ -167,6 +167,23 @@ body{
   color: var(--muted-beige);
 }
 
+/* ensure event cards that are links show no underline and inherit styles */
+.highlights .card,
+.highlights .card:link,
+.highlights .card:visited {
+  display: block;       /* anchors behave like the original .card blocks */
+  text-decoration: none;
+  color: inherit;
+}
+
+/* keep hover/focus from reintroducing underline */
+.highlights .card:hover,
+.highlights .card:focus,
+.highlights .card:active {
+  text-decoration: none;
+  color: inherit;
+}
+
 
 
 /* ensure no horizontal scrollbar appears — items shrink to fit */
